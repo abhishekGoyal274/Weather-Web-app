@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather app</title>
+    <link rel="icon" type="image/x-icon" href="https://www.noaa.gov/sites/default/files/styles/square_width_650/public/2021-02/FocusArea__Weather-02.jpg?h=5dc006f5&itok=20VGa8_F" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Roboto:wght@500&family=Sofia&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* --------------------background */
+      .container-fluid {
+        /* margin: 0%; */
+        background-image: url("https://source.unsplash.com/1600x900/?weather");
+        background-size: cover;
+        /* margin-bottom: 0px; */
+        height: auto;
+        /* max-height:200vh; */
+      }
+
+      .row {
+        padding-top: 5.5rem;
+        padding-bottom: 5rem;
+      }
+      /* -----------------------------header */
+      .header {
+        /* background-image: url("https://source.unsplash.com/1600x900/?rain,sunny,cloudy"); */
+        background-color: #212121;
+        opacity: 0.9;
+        background-size: cover;
+        background-position: relative;
+        color: rgb(12, 11, 6);
+        text-align: center;
+        padding: 5rem;
+        border-radius: 14px 0 0 14px;
+      }
+
+      .header h1 {
+        font-weight: 500;
+        font-size: 34px;
+        color: #e4eff7;
+      }
+      .header p {
+        margin-top: 1rem;
+        font-weight: 600;
+        font-size: 1.5 rem;
+        color: #e4eff7;
+      }
+
+      a:hover,
+      a:visited,
+      a:link,
+      a:active {
+        text-decoration: none;
+        color: #d0e5f5;
+      }
+      .main {
+        /* background-image: linear-gradient(#424242, #757575); */
+        background-color: #f5f0f0;
+        opacity: 0.8;
+        border-radius: 0px 14px 14px 0px;
+      }
+
+      /* --------------------------------input section */
+      .inputs {
+        padding: 6rem 0 2rem 0;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+      }
+
+      .inputs input[type="text"] {
+        height: 3.5rem;
+        width: 30rem;
+        background: #212121;
+        font-weight: bold;
+        font-size: 1.5rem;
+        border: none;
+        background-color: transparent;
+        border-bottom: solid 1px #0081c9;
+        color: #0081c9;
+        border-radius: 2px;
+        margin-right: 4px;
+      }
+      .inputs input[type="submit"] {
+        height: 3.5rem;
+        width: 6.5rem;
+        background: #0081c9;
+        font-weight: bold;
+        color: ghostwhite;
+        font-size: 1.5rem;
+        border: none;
+        border-radius: 2px;
+      }
+
+      /* -------------------------------display */
+      .display {
+        text-align: center;
+        color: #0081c9;
+      }
+      .wrapper {
+        margin: 0 9rem;
+        width: 50%;
+        background-color: #212121;
+        max-height: 120vh;
+        margin: 50px auto;
+        border-radius: 14px;
+      }
+
+      .wrapper h2 {
+        padding: 30px 0;
+        margin-bottom: 1px;
+        text-align: center;
+      }
+      .wrapper p {
+        text-align: center;
+        margin: 10px 0;
+        font-size: 20px;
+      }
+
+      .fa {
+        padding: 20px;
+        font-size: 30px;
+        width: 30px;
+        text-align: center;
+        text-decoration: none;
+        margin: 5px 2px;
+        border-radius: 50%;
+      }
+      .fa-twitter {
+        /* background:black; */
+        color: white;
+      }
+      .fa-linkedin {
+        /* background: #007bb5; */
+        color: white;
+      }
+
+      .fa2 {
+        background-image: url(img\icons8-github.svg);
+      }
+      .fa3 {
+        background-image: url(img\whatsapp-svgrepo-com.svg);
+      }
+      .fa-github {
+        color: white;
+      }
+      .fa-whatsapp {
+        color: white;
+      }
+
+      div.location {
+        width: 8%;
+        height: 4%;
+        padding: 5px;
+        background-color: white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+          0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        margin-bottom: 25px;
+        margin-left: auto;
+        margin-right: auto;
+        cursor: pointer;
+        border: 3px solid #0081c9;
+        border-radius: 15%;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <div class="container-fluid">
+      <div class="row offset-sm-1">
+        <!-- Header part -->
+        <section class="header col-md-4 col-sm-10">
+          <lottie-player
+            src="https://assets1.lottiefiles.com/private_files/lf30_jmgekfqg.json"
+            background="transparent"
+            speed="1"
+            style="width: 200px; height: 200px; margin: 0 auto; opacity: 1"
+            loop
+            autoplay
+          ></lottie-player>
+          <h1 style="font-family: 'Roboto', sans-serif">Weather Viewer</h1>
+
+          <br /><br /><br /><br /><br /><br /><br />
+
+          <lottie-player
+            src="https://assets2.lottiefiles.com/packages/lf20_7ts0t3mr.json"
+            background="transparent"
+            speed="1"
+            style="width: 30vw; height: 30vw; margin: 0 auto; opacity: 1"
+            loop
+            autoplay
+          ></lottie-player>
+
+          <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+          <p>Coded with ❤ & ☕ By Dheerja Goyal</p>
+          <p>
+            <a
+              href="https://www.instagram.com/dheerajgoyal274/"
+              class="fa fa-instagram"
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/dheeraj-goyal-599397158/"
+              class="fa fa-linkedin"
+            ></a>
+            <a
+              href="https://wa.me/+919888667598"
+              class="fa fa3 fa-whatsapp"
+            ></a>
+          </p>
+        </section>
+
+        <section class="main col-md-7 col-sm-10">
+          <!-- input section -->
+          <section class="inputs">
+            <input type="text" placeholder="Enter any city..." id="cityinput" />
+            <input type="submit" value="Submit" id="add" />
+            <button placeholder="submit" id="add"></button>
+          </section>
+
+          <div class="location">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/17/17736.png"
+              class="location-img"
+              alt="location img"
+              style="width: 100%; height: 80%"
+            />
+          </div>
+
+          <!-- City section -->
+          <section class="display">
+            <div class="wrapper">
+              <h2 id="cityoutput"></h2>
+              <p id="country"></p>
+              <p id="population"></p>
+              <br />
+            </div>
+          </section>
+
+          <!-- Weather section -->
+          <section class="display">
+            <div class="wrapper">
+              <h2>Weather</h2>
+              <p id="description"></p>
+              <p id="temp"></p>
+              <p id="wind"></p>
+              <p id="airPollution"></p>
+              <br />
+            </div>
+          </section>
+
+          <!-- Forcast section -->
+
+          <section class="display">
+            <div class="wrapper">
+              <h2>Forecast</h2>
+              <!-- Day1 -->
+              <h4>Day1</h4>
+              <p id="description1"></p>
+              <p id="temp1"></p>
+              <p id="wind1"></p>
+              <br />
+
+              <hr />
+
+              <!-- Day2 -->
+              <h4>Day2</h4>
+              <p id="description2"></p>
+              <p id="temp2"></p>
+              <p id="wind2"></p>
+              <br />
+
+              <hr />
+
+              <!-- Day3 -->
+              <h4>Day3</h4>
+              <p id="description3"></p>
+              <p id="temp3"></p>
+              <p id="wind3"></p>
+              <br />
+            </div>
+          </section>
+        </section>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      //selector variable
+      var inputval = document.querySelector("#cityinput");
+      var btn = document.querySelector("#add");
+      var city = document.querySelector("#cityoutput");
+      var descrip = document.querySelector("#description");
+      var temp = document.querySelector("#temp");
+      var wind = document.querySelector("#wind");
+      var airPollution = document.querySelector("#airPollution");
+      var country = document.querySelector("#country");
+      var population = document.querySelector("#population");
+      var locationIcon = document.querySelector(".location");
+
+      var descrip1 = document.querySelector("#description1");
+      var temp1 = document.querySelector("#temp1");
+      var wind1 = document.querySelector("#wind1");
+
+      var descrip2 = document.querySelector("#description2");
+      var temp2 = document.querySelector("#temp2");
+      var wind2 = document.querySelector("#wind2");
+
+      var descrip3 = document.querySelector("#description3");
+      var temp3 = document.querySelector("#temp3");
+      var wind3 = document.querySelector("#wind3");
+
+      let cityName = "";
+      let latitude = 0.0;
+      let longitude = 0.0;
+
+      inputval.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+
+          cityName = inputval.value;
+          getSearchWeather(cityName);
+          console.log(cityName);
+        }
+      });
+
+      // Get your own free OWM API key at https://www.openweathermap.org/appid - please do not re-use mine!
+      // You don't need an API key for this to work at the moment, but this will change eventually.
+      apik = "3045dd712ffe6e702e3245525ac7fa38";
+      //kelvin to celcious
+
+      function convertion(val) {
+        return (val - 273).toFixed(2);
+      }
+
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(setPosition, showError);
+      }
+
+      function setPosition(position) {
+        latitude = position.coords.latitude;
+        longitude = position.coords.longitude;
+
+        getWeather(latitude, longitude);
+      }
+
+      locationIcon.addEventListener("click", function (event) {
+        console.log("hey");
+        getWeather(latitude, longitude);
+      });
+
+      function showError(error) {
+        alert(error.message);
+      }
+
+      function getSearchWeather(cityName) {
+        city.innerHTML = `City`;
+        airPollution.innerHTML = `Air Quality Index: ....`;
+        temp.innerHTML = `Temperature: ....`;
+        description.innerHTML = `Conditions: ....`;
+        wind.innerHTML = `Wind Speed: ....`;
+        country.innerHTML = `Country: ....`;
+        population.innerHTML = `Population: ....`;
+        descrip1.innerHTML = `Conditions: ....`;
+        temp1.innerHTML = `Temprature: ....`;
+        wind1.innerHTML = `Wind Speed: ....`;
+        descrip2.innerHTML = `Conditions: ....`;
+        temp2.innerHTML = `Temprature: ....`;
+        wind2.innerHTML = `Wind Speed: ....`;
+        descrip3.innerHTML = `Conditions: ....`;
+        temp3.innerHTML = `Temprature: ....`;
+        wind3.innerHTML = `Wind Speed: ....`;
+
+        fetch(
+          "https://api.openweathermap.org/data/2.5/weather?q=" +
+            inputval.value +
+            "&appid=" +
+            apik
+        )
+          .then((res) => res.json())
+          //.then(data => console.log(data))
+          .then((data) => {
+            var nameval = data["name"];
+            var descrip = data["weather"]["0"]["description"];
+            var tempature = data["main"]["temp"];
+            var wndspd = data["wind"]["speed"];
+
+            city.innerHTML = `City: ${nameval}`;
+            temp.innerHTML = `Temperature: ${convertion(tempature)} C`;
+            description.innerHTML = `Conditions: ${descrip}`;
+            wind.innerHTML = `Wind Speed: ${wndspd} km/h`;
+
+            // Air Pollution Call
+            fetch(
+              `http://api.openweathermap.org/geo/1.0/direct?q=` +
+                inputval.value +
+                `&appid=` +
+                apik
+            )
+              .then((res) => res.json())
+              .then((data) => {
+                var lat = data[0].lat;
+                var lon = data[0].lon;
+                fetch(
+                  `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apik}`
+                )
+                  .then((res) => res.json())
+                  .then((data) => {
+                    var airPoll = data.list[0].main.aqi;
+                    airPollution.innerHTML = `Air Quality Index: ${airPoll} `;
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+              });
+
+            // Forecast Call
+            fetch(
+              `https://api.openweathermap.org/data/2.5/forecast?q=` +
+                inputval.value +
+                `&appid=` +
+                apik
+            )
+              .then((res) => res.json())
+              .then((data) => {
+                console.log(data);
+                var count = data.city.country;
+                var pop = data.city.population;
+
+                country.innerHTML = `Country: ${count} `;
+                population.innerHTML = `Population: ${pop} `;
+
+                descrip1.innerHTML = `Conditions: ${data.list[0].weather[0].description}`;
+                temp1.innerHTML = `Temprature: ${convertion(
+                  data.list[0].main.temp
+                )} C`;
+                wind1.innerHTML = `Wind Speed: ${data.list[0].wind.speed} km/h`;
+
+                descrip2.innerHTML = `Conditions: ${data.list[1].weather[0].description}`;
+                temp2.innerHTML = `Temprature: ${convertion(
+                  data.list[1].main.temp
+                )} C`;
+                wind2.innerHTML = `Wind Speed: ${data.list[1].wind.speed} km/h`;
+
+                descrip3.innerHTML = `Conditions: ${data.list[2].weather[0].description}`;
+                temp3.innerHTML = `Temprature: ${convertion(
+                  data.list[2].main.temp
+                )} C`;
+                wind3.innerHTML = `Wind Speed: ${data.list[2].wind.speed} km/h`;
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          })
+          .catch((err) => alert("You entered Wrong city name"));
+      }
+
+      function getWeather(latitude, longitude) {
+        city.innerHTML = `City`;
+        airPollution.innerHTML = `Air Quality Index: ....`;
+        temp.innerHTML = `Temperature: ....`;
+        description.innerHTML = `Conditions: ....`;
+        wind.innerHTML = `Wind Speed: ....`;
+        country.innerHTML = `Country: ....`;
+        population.innerHTML = `Population: ....`;
+        descrip1.innerHTML = `Conditions: ....`;
+        temp1.innerHTML = `Temprature: ....`;
+        wind1.innerHTML = `Wind Speed: ....`;
+        descrip2.innerHTML = `Conditions: ....`;
+        temp2.innerHTML = `Temprature: ....`;
+        wind2.innerHTML = `Wind Speed: ....`;
+        descrip3.innerHTML = `Conditions: ....`;
+        temp3.innerHTML = `Temprature: ....`;
+        wind3.innerHTML = `Wind Speed: ....`;
+
+        fetch(
+          `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apik}`
+        )
+          .then((res) => res.json())
+          //.then(data => console.log(data))
+          .then((data) => {
+            var nameval = data["name"];
+            var descrip = data["weather"]["0"]["description"];
+            var tempature = data["main"]["temp"];
+            var wndspd = data["wind"]["speed"];
+
+            city.innerHTML = `${nameval}`;
+            temp.innerHTML = `Temperature: ${convertion(tempature)} C`;
+            description.innerHTML = `Conditions: ${descrip}`;
+            wind.innerHTML = `Wind Speed: ${wndspd} km/h`;
+
+            fetch(
+              `http://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${apik}`
+            )
+              .then((res) => res.json())
+              .then((data) => {
+                var airPoll = data.list[0].main.aqi;
+                airPollution.innerHTML = `Air Quality Index: ${airPoll} `;
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+
+            fetch(
+              `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apik}`
+            )
+              .then((res) => res.json())
+              .then((data) => {
+                var count = data.city.country;
+                var pop = data.city.population;
+
+                country.innerHTML = `Country: ${count} `;
+                population.innerHTML = `Population: ${pop} `;
+
+                descrip1.innerHTML = `Conditions: ${data.list[0].weather[0].description}`;
+                temp1.innerHTML = `Temprature: ${convertion(
+                  data.list[0].main.temp
+                )} C`;
+                wind1.innerHTML = `Wind Speed: ${data.list[0].wind.speed} km/h`;
+
+                descrip2.innerHTML = `Conditions: ${data.list[1].weather[0].description}`;
+                temp2.innerHTML = `Temprature: ${convertion(
+                  data.list[1].main.temp
+                )} C`;
+                wind2.innerHTML = `Wind Speed: ${data.list[1].wind.speed} km/h`;
+
+                descrip3.innerHTML = `Conditions: ${data.list[2].weather[0].description}`;
+                temp3.innerHTML = `Temprature: ${convertion(
+                  data.list[2].main.temp
+                )} C`;
+                wind3.innerHTML = `Wind Speed: ${data.list[2].wind.speed} km/h`;
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          })
+          .catch((err) => alert("You entered Wrong city name"));
+      }
+
+      //fetch
+      btn.addEventListener("click", getSearchWeather);
+      // inputval.addEventListener('keypress', work);
+    </script>
+  </body>
+</html>
